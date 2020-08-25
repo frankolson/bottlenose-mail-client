@@ -1,0 +1,5 @@
+service: bottlenosemail-website
+
+provider:
+  name: aws
+  runtime: nodejs12.x
