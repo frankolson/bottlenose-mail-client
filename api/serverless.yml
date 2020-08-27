@@ -6,19 +6,19 @@ provider:
 
 functions:
   createInbox:
-    handler: inboxes/create.create
+    handler: lambdas/inboxes.create
     events:
       - http:
           path: inboxes
           method: post
   showInbox:
-    handler: inboxes/show.show
+    handler: lambdas/inboxes.show
     events:
       - http:
           path: inboxes/{id}
           method: get
   showEmail:
-    handler: emails/show.show
+    handler: lambdas/emails.show
     events:
       - http:
           path: inboxes/{inbox_id}/emails/{id}
