@@ -1,0 +1,37 @@
+service: api
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  createInbox:
+    handler: inboxes/create.create
+    events:
+      - http:
+          path: inboxes
+          method: post
+  showInbox:
+    handler: inboxes/show.show
+    events:
+      - http:
+          path: inboxes/{id}
+          method: get
+  showEmail:
+    handler: emails/show.show
+    events:
+      - http:
+          path: inboxes/{inbox_id}/emails/{id}
+          method: get
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
