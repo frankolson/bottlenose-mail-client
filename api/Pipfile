@@ -6,7 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pytest = "*"
+moto = "*"
+boto = "*"
 
 [requires]
 python_version = "3.8"

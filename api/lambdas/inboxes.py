@@ -1,17 +1,18 @@
 import json
+from utils.dynamodb import create_inbox, find_inbox
 
 def show(event, context):
-    response = {
-        "statusCode": 200,
-        "body": json.dumps('Hello Python')
-    }
+    inbox = find_inbox(event['pathParameters']['id'])
 
-    return response
+    return {
+        "statusCode": 200,
+        "body": json.dumps(inbox)
+    }
 
 def create(event, context):
-    response = {
-        "statusCode": 200,
-        "body": json.dumps('Hello Python')
-    }
+    inbox = create_inbox()
 
-    return response
+    return {
+        "statusCode": 200,
+        "body": json.dumps(inbox)
+    }

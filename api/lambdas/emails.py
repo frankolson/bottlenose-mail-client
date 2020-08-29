@@ -1,10 +1,14 @@
 import json
+from utils.dynamodb import find_email
 
 
 def show(event, context):
-    response = {
-        "statusCode": 200,
-        "body": json.dumps('Hello Python')
-    }
+    email = find_email(
+        event['pathParameters']['inbox_id'],
+        event['pathParameters']['id'],
+    )
 
-    return response
+    return {
+        "statusCode": 200,
+        "body": json.dumps(email)
+    }
