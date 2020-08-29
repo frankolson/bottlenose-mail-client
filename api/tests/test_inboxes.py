@@ -29,5 +29,6 @@ class InboxesTestCase(unittest.TestCase):
         self.assertTrue(response['statusCode'] == 200)
         self.assertTrue('id' in response_body)
         self.assertTrue('email_address' in response_body)
+        self.assertTrue('created_at' in response_body)
         self.assertTrue('expires_at' in response_body)
         self.assertTrue('emails' in response_body)

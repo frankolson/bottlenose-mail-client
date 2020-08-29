@@ -20,6 +20,7 @@ def create_inbox():
   new_inbox = {
     'id': inbox_id,
     'email_address': inbox_id[:8] + '@bottlenosemail.com',
+    'created_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
     'expires_at': (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1)).isoformat(),
     'emails': []
   }

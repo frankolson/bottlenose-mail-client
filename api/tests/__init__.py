@@ -35,6 +35,7 @@ def initialize_inboxes_table():
     table.put_item(Item = {
         'id': INBOX_ID,
         'email_address': EMAIL_ADDRESS,
+        'created_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'expires_at': (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1)).isoformat(),
         'emails': [
             {
