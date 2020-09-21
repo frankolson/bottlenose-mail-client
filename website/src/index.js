@@ -1,9 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import './index.scss';
-import Routes from './Routes';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Amplify } from "aws-amplify";
+import "./index.scss";
+import Routes from "./Routes";
+import * as serviceWorker from "./serviceWorker";
+import config from "./config";
+
+Amplify.configure({
+  API: {
+    endpoints: [
+      {
+        name: "bottlenose",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION,
+      },
+    ],
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -11,7 +25,7 @@ ReactDOM.render(
       <Routes />
     </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
