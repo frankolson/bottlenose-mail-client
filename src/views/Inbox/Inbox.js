@@ -34,7 +34,7 @@ export default function Inbox({ match }) {
     return (
       <Row as="main">
         <Col>
-          <p className="text-center">Here is inbox: {inbox.emailAddress}.</p>
+          <h4 className="text-center">Email Address: {inbox.emailAddress}.</h4>
           <Table striped bordered hover>
             <thead>
               <tr>
