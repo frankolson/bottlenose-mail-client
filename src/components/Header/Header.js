@@ -1,7 +1,17 @@
 import React from "react";
 import { Row, Col, Button, Jumbotron, Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { API } from "aws-amplify";
 
-export default function Heaser() {
+export default function Header() {
+  let history = useHistory();
+
+  function createInbox() {
+    return API.post("bottlenose", `/inboxes`).then((newInbox) =>
+      history.push(`/inboxes/${newInbox.inboxId}`)
+    );
+  }
+
   return (
     <Row className="text-center mb-5">
       <Col>
@@ -17,7 +27,7 @@ export default function Heaser() {
             <br />
           </Container>
         </Jumbotron>
-        <Button href="#">Create New Inbox</Button>
+        <Button onClick={createInbox}>Create New Inbox</Button>
       </Col>
     </Row>
   );
