@@ -33,7 +33,7 @@ export default function ShowEmail({ match }) {
           <p className="text-center">Here is email: {email.emailAddress}.</p>
           <Card>
             <Card.Header>
-              <Link to="/inboxes/${inboxId}">
+              <Link to={`/inboxes/${email.inboxId}`}>
                 <Button variant="primary">Back</Button>
               </Link>
 
