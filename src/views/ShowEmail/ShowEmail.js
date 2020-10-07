@@ -3,8 +3,8 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
-import styles from "./mystyle.module.css";
 import sanitizeHtml from "sanitize-html";
+import styles from "./styles.css";
 
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
