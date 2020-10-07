@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 
@@ -35,11 +36,11 @@ export default function Inbox({ match }) {
       <Row as="main">
         <Col>
           <h4 className="text-center">Email Address: {inbox.emailAddress}.</h4>
-          <Table striped bordered hover>
+          <Table responsive striped bordered hover>
             <thead>
               <tr>
-                <th>Sender</th>
                 <th>Subject</th>
+                <th>Sender</th>
                 <th>Received</th>
               </tr>
             </thead>
@@ -47,8 +48,12 @@ export default function Inbox({ match }) {
               {emails.map((email) => {
                 return (
                   <tr>
+                    <td>
+                      <Link to={`/emails/${email.emailId}`}>
+                        {email.subject}
+                      </Link>
+                    </td>
                     <td>{email.from}</td>
-                    <td>{email.subject}</td>
                     <td>{moment(email.date).format("lll")}</td>
                   </tr>
                 );

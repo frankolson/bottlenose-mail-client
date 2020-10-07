@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
-import styles from "./styles.css";
+import "./styles.css";
 
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
@@ -37,8 +37,8 @@ export default function ShowEmail({ match }) {
                 <Button variant="primary">Back</Button>
               </Link>
 
-              <h1 className={styles.title}>Subject: {email.subject}</h1>
-              <Card.Title className={styles.title}>
+              <h1 className="title">Subject: {email.subject}</h1>
+              <Card.Title className="title">
                 From: {email.from}
                 <br />
                 Sent: {moment(email.date).format("lll")}
