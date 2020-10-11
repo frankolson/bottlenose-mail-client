@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
-import "./styles.css";
+
 
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
