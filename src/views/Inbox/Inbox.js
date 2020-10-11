@@ -21,7 +21,7 @@ export default function Inbox({ match }) {
     }
 
     onLoad();
-  }, []);
+  }, [match.params.inbox]);
 
   function loadInbox(inboxId) {
     return API.get("bottlenose", `/inboxes/${inboxId}`);

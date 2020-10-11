@@ -20,7 +20,7 @@ export default function ShowEmail({ match }) {
     }
 
     onLoad();
-  }, []);
+  }, [match.params.email]);
 
   function loadEmail(emailId) {
     return API.get("bottlenose", `/emails/${emailId}`);
