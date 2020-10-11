@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
-import "./styles.css";
+
 
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
@@ -30,37 +30,36 @@ export default function ShowEmail({ match }) {
     return (
       <Row as="main">
         <Col>
-          <p className="text-center">Here is email: {email.emailAddress}.</p>
+          <h4 className="text-center">Here is email: {email.emailAddress}</h4>
           <Card>
             <Card.Header>
               <Link to={`/inboxes/${email.inboxId}`}>
                 <Button variant="primary">Back</Button>
               </Link>
-
-              <h1 className="title">Subject: {email.subject}</h1>
-              <Card.Title className="title">
-                From: {email.from}
-                <br />
-                Sent: {moment(email.date).format("lll")}
-              </Card.Title>
             </Card.Header>
             <Card.Body>
-              <Card.Text>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(email.bodyHtml),
-                  }}
-                />
-              </Card.Text>
+              <p>
+                <strong>Subject:</strong> {email.subject}
+                <br />
+                <strong>From:</strong> {email.from}
+                <br />
+                <strong>Sent:</strong> {moment(email.date).format("lll")}
+              </p>
+              <hr />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeHtml(email.bodyHtml),
+                }}
+              />
             </Card.Body>
-            <Card.Footer className="text-muted">Attachments:</Card.Footer>
+            <Card.Footer className="text-muted"></Card.Footer>
           </Card>
         </Col>
       </Row>
     );
   }
   function renderLoading() {
-    return <p className="text-center">Loading...</p>;
+    return <div className="text-center"><Spinner animation="border" variant="dark" /></div>;
   }
   return <div className="email">{email ? renderEmail() : renderLoading()}</div>;
 }
