@@ -17,11 +17,7 @@ export default function Home() {
             inbox.
           </li>
           <li>
-            Check to make sure your inbox is working by sending a blank email to
-            your temporary email address.
-          </li>
-          <li>
-            After 24 hours, your temporary email address will expire and any
+            After 1:00am Eastern Time, your temporary email address will expire and any
             emails in your inbox will be deleted.
           </li>
         </ol>
