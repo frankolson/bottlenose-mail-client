@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
@@ -9,13 +9,19 @@ import sanitizeHtml from "sanitize-html";
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
 
+  let history = useHistory();
+
   useEffect(() => {
     async function onLoad() {
       try {
         const retrievedEmail = await loadEmail(match.params.email);
         setEmail(retrievedEmail);
       } catch (error) {
-        alert(error);
+        if (error.response.status === 404) {
+          history.push("/not_found")
+        } else {
+          alert(error);
+        }
       }
     }
 
