@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col, Table, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
@@ -35,7 +35,7 @@ export default function Inbox({ match }) {
     return (
       <Row as="main">
         <Col>
-          <h4 className="text-center">Email Address: {inbox.emailAddress}.</h4>
+          <h4 className="text-center">Email Address: {inbox.emailAddress}</h4>
           <Table responsive striped bordered hover>
             <thead>
               <tr>
@@ -47,7 +47,7 @@ export default function Inbox({ match }) {
             <tbody>
               {emails.map((email) => {
                 return (
-                  <tr>
+                  <tr key={email.emailId}>
                     <td>
                       <Link to={`/emails/${email.emailId}`}>
                         {email.subject}
@@ -66,7 +66,7 @@ export default function Inbox({ match }) {
   }
 
   function renderLoading() {
-    return <p className="text-center">Loading...</p>;
+    return <div className="text-center"><Spinner animation="border" variant="dark" /></div>;
   }
 
   return <div className="inbox">{inbox ? renderInbox() : renderLoading()}</div>;
