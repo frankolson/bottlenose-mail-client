@@ -21,7 +21,7 @@ Amplify.configure({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router forceRefresh={true}>
       <Routes />
     </Router>
   </React.StrictMode>,
