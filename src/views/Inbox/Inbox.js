@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Table, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
 import moment from "moment";
 
 export default function Inbox({ match }) {
   const [inbox, setInbox] = useState(null);
   const [emails, setEmails] = useState([]);
+
+  let history = useHistory();
 
   useEffect(() => {
     async function onLoad() {
@@ -16,7 +18,11 @@ export default function Inbox({ match }) {
         setInbox(retrievedInbox);
         setEmails(retrievedEmails);
       } catch (error) {
-        alert(error);
+        if (error.response.status === 404) {
+          history.push("/not_found")
+        } else {
+          alert(error);
+        }
       }
     }
 
