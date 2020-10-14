@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button, Spinner } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Row, Col, Card, Button, Spinner, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { CopyToClipboard } from 'react-copy-to-clipboard';  // references https://www.npmjs.com/package/react-copy-to-clipboard
 import { API } from "aws-amplify";
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
@@ -8,6 +9,9 @@ import sanitizeHtml from "sanitize-html";
 
 export default function ShowEmail({ match }) {
   const [email, setEmail] = useState(null);
+
+  const [copy, setCopy] = useState(false);
+  const target = useRef(null);
 
   useEffect(() => {
     async function onLoad() {
@@ -30,7 +34,28 @@ export default function ShowEmail({ match }) {
     return (
       <Row as="main">
         <Col>
-          <h4 className="text-center">Here is email: {email.emailAddress}</h4>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Email Address:</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              value={email.emailAddress} readOnly />
+            <InputGroup.Append>
+              <CopyToClipboard text={email.emailAddress} onCopy={() => setCopy(true)}>
+                <Button ref={target} onClick={() => setCopy(!copy)} variant="secondary">Copy</Button>
+              </CopyToClipboard>
+              <Overlay target={target.current} show={copy} placement="bottom">
+                {(props) => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied!
+                  </Tooltip>
+                )}
+              </Overlay>
+            </InputGroup.Append>
+            {/* {copy ? <span style={{ color: "red" }}>Copied.</span> : null} */}
+          </InputGroup>
+          <h6 className="text-center"><em>*Reminder* To see new emails, please refresh your inbox.</em></h6>
+          <br />
           <Card>
             <Card.Header>
               <Link to={`/inboxes/${email.inboxId}`}>
@@ -52,7 +77,6 @@ export default function ShowEmail({ match }) {
                 }}
               />
             </Card.Body>
-            <Card.Footer className="text-muted"></Card.Footer>
           </Card>
         </Col>
       </Row>

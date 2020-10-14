@@ -20,7 +20,7 @@ export default function Header() {
             <h1 className="display-4">Bottlenose Mail</h1>
             <p className="lead" style={{ color: "black" }}>
               Forget about spam, advertising mailings, hacking and attacking
-              robots. Keep your real mailbox clean and secure. Bootlenoose Mail
+              robots. Keep your real mailbox clean and secure. Bottlenose Mail
               provides a temporary, secure, anonymous, free, disposable email
               address.
             </p>

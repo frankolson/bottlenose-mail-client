@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Table, Spinner } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Row, Col, Table, Spinner, Button, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { CopyToClipboard } from 'react-copy-to-clipboard'; //For refernece: https://www.npmjs.com/package/react-copy-to-clipboard
 import { API } from "aws-amplify";
 import moment from "moment";
 
 export default function Inbox({ match }) {
   const [inbox, setInbox] = useState(null);
   const [emails, setEmails] = useState([]);
+
+  const [copy, setCopy] = useState(false);
+  const target = useRef(null);
 
   useEffect(() => {
     async function onLoad() {
@@ -35,7 +39,29 @@ export default function Inbox({ match }) {
     return (
       <Row as="main">
         <Col>
-          <h4 className="text-center">Email Address: {inbox.emailAddress}</h4>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend variant="dark">
+              <InputGroup.Text id="basic-addon1">Email Address:</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              value={inbox.emailAddress} readOnly />
+            <InputGroup.Append>
+              <CopyToClipboard text={inbox.emailAddress} onCopy={() => setCopy(true)}>
+                <Button ref={target} onClick={() => setCopy(!copy)} variant="secondary">Copy</Button>
+              </CopyToClipboard>
+              <Overlay target={target.current} show={copy} placement="bottom">
+                {(props) => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Copied!
+                  </Tooltip>
+                )}
+              </Overlay>
+              {/* For Reference https://react-bootstrap.github.io/components/overlays/ */}
+            </InputGroup.Append>
+            {/* {copy ? <span style={{ color: "red" }}>Copied.</span> : null} */}
+          </InputGroup>
+          <h6 className="text-center"><em>*Reminder* To see new emails, please refresh your inbox.</em></h6>
+          <br />
           <Table responsive striped bordered hover>
             <thead>
               <tr>
