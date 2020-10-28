@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Card, Button, Spinner, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { CopyToClipboard } from 'react-copy-to-clipboard';  // references https://www.npmjs.com/package/react-copy-to-clipboard
 import { API } from "aws-amplify";
+import { CopyToClipboard } from 'react-copy-to-clipboard';  // references https://www.npmjs.com/package/react-copy-to-clipboard
 import moment from "moment";
 import sanitizeHtml from "sanitize-html";
 

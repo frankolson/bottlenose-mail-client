@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Table, Spinner, Button, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { CopyToClipboard } from 'react-copy-to-clipboard'; //For refernece: https://www.npmjs.com/package/react-copy-to-clipboard
 import { API } from "aws-amplify";
+import { CopyToClipboard } from 'react-copy-to-clipboard'; //For refernece: https://www.npmjs.com/package/react-copy-to-clipboard
 import moment from "moment";
 
 export default function Inbox({ match }) {
@@ -49,7 +49,7 @@ export default function Inbox({ match }) {
               <CopyToClipboard text={inbox.emailAddress} onCopy={() => setCopy(true)}>
                 <Button ref={target} onClick={() => setCopy(!copy)} variant="secondary">Copy</Button>
               </CopyToClipboard>
-              <Overlay target={target.current} show={copy} placement="bottom">
+              <Overlay ref={target.current} show={copy} placement="bottom">
                 {(props) => (
                   <Tooltip id="overlay-example" {...props}>
                     Copied!
@@ -71,6 +71,7 @@ export default function Inbox({ match }) {
               </tr>
             </thead>
             <tbody>
+              {emails.length === 0 ? <tr><td className="text-center" colSpan="3">Your Inbox is empty!</td></tr> : null}
               {emails.map((email) => {
                 return (
                   <tr key={email.emailId}>
