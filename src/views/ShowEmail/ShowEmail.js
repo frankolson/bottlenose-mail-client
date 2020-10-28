@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Card, Button, Spinner, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
 import { CopyToClipboard } from 'react-copy-to-clipboard';  // references https://www.npmjs.com/package/react-copy-to-clipboard
 import moment from "moment";
@@ -12,6 +12,8 @@ export default function ShowEmail({ match }) {
 
   const [copy, setCopy] = useState(false);
   const target = useRef(null);
+  
+  let history = useHistory();
 
   useEffect(() => {
     async function onLoad() {
@@ -19,7 +21,11 @@ export default function ShowEmail({ match }) {
         const retrievedEmail = await loadEmail(match.params.email);
         setEmail(retrievedEmail);
       } catch (error) {
-        alert(error);
+        if (error.response.status === 404) {
+          history.push("/not_found")
+        } else {
+          alert(error);
+        }
       }
     }
 

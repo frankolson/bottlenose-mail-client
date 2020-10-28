@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Table, Spinner, Button, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API } from "aws-amplify";
 import { CopyToClipboard } from 'react-copy-to-clipboard'; //For refernece: https://www.npmjs.com/package/react-copy-to-clipboard
 import moment from "moment";
@@ -11,6 +11,8 @@ export default function Inbox({ match }) {
 
   const [copy, setCopy] = useState(false);
   const target = useRef(null);
+  
+  let history = useHistory();
 
   useEffect(() => {
     async function onLoad() {
@@ -20,7 +22,11 @@ export default function Inbox({ match }) {
         setInbox(retrievedInbox);
         setEmails(retrievedEmails);
       } catch (error) {
-        alert(error);
+        if (error.response.status === 404) {
+          history.push("/not_found")
+        } else {
+          alert(error);
+        }
       }
     }
 
